@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: MeteorsData
+Resources: 
+  MeterosStatus:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: MeteorsData.lambda_handler
+      CodeUri: handler
+      Runtime: python3.10
+      MemorySize: 256
+      Timeout: 60
+      ReservedConcurrentExecutions: 1
+      Policies:
+        - S3WritePolicy:
+            BucketName: !ImportValue MeteorsDataBucket
+      Environment:
+        Variables:
+          BUCKET_NAME: !ImportValue MeteorsDataBucket
+      Events:
+        Schedule:
+          Type: Schedule
+          Properties:
+            Schedule: 'rate(1 day)'
+            Enabled: true
+  

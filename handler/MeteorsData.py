@@ -1,7 +1,11 @@
 import json
 import requests
 import boto3 
+import os
+
 from datetime import datetime
+
+BUCKET_NAME = os.getenv("BUCKET_NAME")
 
 def lambda_handler(event, context):
     # TODO implement
@@ -16,9 +20,9 @@ def lambda_handler(event, context):
 
         with open("data.json", "w") as _file:
             _file.write(json.dumps(data["near_earth_objects"]))
-            client.put_object(Body=data["near_earth_objects"], Bucket = "meterosdata", Key = "near_earth_objects")
+            client.put_object(Body=data["near_earth_objects"], Bucket = BUCKET_NAME, Key = "near_earth_objects")
     return {
         'statusCode': 200,
-        'body': json.dumps('Hello from Lambda!')
+        'body': 'done'
     }
 
