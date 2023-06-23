@@ -20,7 +20,7 @@ def lambda_handler(event, context):
 
         with open("/tmp/data.json", "w") as _file:
             _file.write(json.dumps(data["near_earth_objects"]))
-            client.put_object(Body=data["near_earth_objects"], Bucket = BUCKET_NAME, Key = "near_earth_objects")
+            client.put_object(Body=json.dumps(data["near_earth_objects"]), Bucket = BUCKET_NAME, Key = "near_earth_objects")
     return {
         'statusCode': 200,
         'body': 'done'
