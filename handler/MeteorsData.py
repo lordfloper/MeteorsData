@@ -1,4 +1,3 @@
-import json
 import requests
 import boto3 
 import os
@@ -16,11 +15,11 @@ def lambda_handler(event, context):
 
     response = requests.get(f"https://api.nasa.gov/neo/rest/v1/feed?start_date={start_date}&end_date={end_date}&api_key=DEMO_KEY")
     if response.status_code == 200:
-        data = response.json()
+        data = response.content
 
         with open("/tmp/data.json", "w") as _file:
-            _file.write(json.dumps(data["near_earth_objects"]))
-            client.put_object(Body=json.dumps(data["near_earth_objects"]), Bucket = BUCKET_NAME, Key = "near_earth_objects")
+            _file.write(data["near_earth_objects"])
+            client.put_object(Body=data["near_earth_objects"], Bucket = BUCKET_NAME, Key = "near_earth_objects")
     return {
         'statusCode': 200,
         'body': 'done'
