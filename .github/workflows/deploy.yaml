@@ -1,5 +1,5 @@
-name: Deploy MeterosStatus
-run-name: ${{ github.actor }} deploying meteros status
+name: Deploy MeteorsStatus
+run-name: ${{ github.actor }} deploying meteors status
 on: [push]
 jobs:
   deploy:
@@ -15,10 +15,10 @@ jobs:
 
           pip install -r requirements.txt -t handler
 
-          sam deploy --stack-name meterosdata  \
+          sam deploy --stack-name Meteorsdata  \
             --no-confirm-changeset \
             --s3-bucket meteors-monitoring-deploy \
-            --s3-prefix meterosdata \
+            --s3-prefix Meteorsdata \
             --capabilities CAPABILITY_IAM \
             --force-upload \
             --no-fail-on-empty-changeset \
