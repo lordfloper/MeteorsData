@@ -15,7 +15,7 @@ def lambda_handler(event, context):
 
     response = requests.get(f"https://api.nasa.gov/neo/rest/v1/feed?start_date={start_date}&end_date={end_date}&api_key=DEMO_KEY")
     if response.status_code == 200:
-        data = response.content
+        data = response.text
 
         with open("/tmp/data.json", "w") as _file:
             _file.write(data["near_earth_objects"])
