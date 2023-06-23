@@ -18,7 +18,7 @@ def lambda_handler(event, context):
     if response.status_code == 200:
         data = response.json()
 
-        with open("data.json", "w") as _file:
+        with open("/tmp/data.json", "w") as _file:
             _file.write(json.dumps(data["near_earth_objects"]))
             client.put_object(Body=data["near_earth_objects"], Bucket = BUCKET_NAME, Key = "near_earth_objects")
     return {
